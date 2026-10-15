@@ -14,7 +14,9 @@ At the start of every run, for each todo tagged `improvement-loop` and `investig
 - Otherwise leave it alone. Investigations can take more than an hour.
 
 Never have more than **3** investigators running. Start new ones for `waiting` todos, oldest first,
-until you reach the cap.
+until you reach the cap. Each investigator is an agent running on this machine, and too many at
+once can starve it. We use 3 while someone is working on the machine and 6 when it does nothing
+else; change the number here to suit yours.
 
 ## File a new finding
 
@@ -26,7 +28,7 @@ until you reach the cap.
    was filed and closed before, link the old issue and say it has come back.
 3. `todo_comment_create` on the todo with the issue's URL.
 4. Add a row to the ledger's Open findings.
-5. If fewer than 3 investigators are running, start one. Otherwise tag the todo `waiting`.
+5. If fewer investigators are running than the cap above, start one. Otherwise tag the todo `waiting`.
 
 ## Start an investigator
 
