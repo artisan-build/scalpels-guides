@@ -6,7 +6,7 @@ Each guide has its own branch, named after the guide's slug. `main` holds only t
 
 | Guide | Branch |
 | --- | --- |
-| [Continuously improve your software with Solo, Hone, Reel and Wake](https://scalpels.app/guides/continuously-improve-your-software) | [`continuously-improve-your-software`](../../tree/continuously-improve-your-software) |
+| [Continuously improve your software with Scalpels and Solo](https://scalpels.app/guides/continuously-improve-your-software) | [`continuously-improve-your-software`](../../tree/continuously-improve-your-software) |
 
 To use one, clone the branch you need:
 
