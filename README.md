@@ -1,4 +1,4 @@
-# Continuously improve your software with Solo, Hone, Reel and Wake
+# Continuously improve your software with Scalpels and Solo
 
 Companion code for the guide at
 [scalpels.app/guides/continuously-improve-your-software](https://scalpels.app/guides/continuously-improve-your-software).
