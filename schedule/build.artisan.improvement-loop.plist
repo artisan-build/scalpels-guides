@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+    The launchd equivalent of the crontab line, for macOS. Unlike cron, launchd runs a job it
+    missed while the Mac was asleep as soon as it wakes. Replace /Users/you/improvement-loop,
+    copy this to ~/Library/LaunchAgents/, then run:
+
+        launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/build.artisan.improvement-loop.plist
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>build.artisan.improvement-loop</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>/Users/you/improvement-loop/ring.py</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>/Users/you/improvement-loop</string>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Minute</key>
+        <integer>5</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/you/improvement-loop/state/launchd.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/you/improvement-loop/state/launchd.log</string>
+</dict>
+</plist>

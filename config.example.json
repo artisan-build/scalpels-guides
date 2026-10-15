@@ -1,0 +1,9 @@
+{
+  "solo_project": "my-apps",
+  "runtime": {
+    "name": "Claude",
+    "tool_type": "claude",
+    "extra_args": []
+  },
+  "recycle_after_hours": 24
+}

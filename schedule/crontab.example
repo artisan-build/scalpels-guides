@@ -1,0 +1,2 @@
+# Ring the conductor at five past every hour. Use the absolute path to your clone.
+5 * * * * cd /Users/you/improvement-loop && /usr/bin/python3 ring.py >/dev/null 2>&1
