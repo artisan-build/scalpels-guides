@@ -83,8 +83,10 @@ def main():
             elif status and not is_idle(status):
                 log("%s %s is still busy; not ringing this hour" % (ROLE, process_id))
             else:
-                ring(solo, process_id, pid, RUN)
-                log("rang %s %s" % (ROLE, process_id))
+                if ring(solo, process_id, pid, RUN):
+                    log("rang %s %s" % (ROLE, process_id))
+                else:
+                    log("rang %s %s, but it never started working; check it in Solo" % (ROLE, process_id))
     except SoloError as error:
         log("could not reach Solo: %s" % error)
         return 1
