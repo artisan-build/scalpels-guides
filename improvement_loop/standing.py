@@ -80,14 +80,24 @@ def wait_until_ready(solo, process_id, project_id, timeout=120):
     return False
 
 
-def ring(solo, process_id, project_id, text):
-    """Send a short message and press Enter, then press Enter again in case the first landed early.
+def ring(solo, process_id, project_id, text, attempts=4):
+    """Send a short message, then keep pressing Enter until the agent is actually working on it.
+
+    A freshly started agent can show its prompt before it accepts input, so an Enter sent too early
+    leaves the message sitting in the input box and the agent idle. After each Enter, wait and check:
+    once the agent stops being idle, the message was taken.
 
     Keep the text short: Solo clips long input from the front. Put anything long in a file and
     tell the agent where it is.
     """
     solo.call("send_input", process_id=process_id, project_id=project_id, input=text, wait_ms=1500)
-    solo.call("send_input", process_id=process_id, project_id=project_id, bytes=[13])
+    for _ in range(attempts):
+        solo.call("send_input", process_id=process_id, project_id=project_id, bytes=[13])
+        time.sleep(5)
+        status = agent_status(solo, process_id, project_id)
+        if status is None or not is_idle(status):
+            return True
+    return False
 
 
 def ensure(solo, registry, role, project_id, runtime, brief, max_idle_age_s=None, log=print):
@@ -113,5 +123,6 @@ def ensure(solo, registry, role, project_id, runtime, brief, max_idle_age_s=None
 
     if not wait_until_ready(solo, process_id, project_id):
         log("%s: agent %s never showed a prompt, briefing it anyway" % (role, process_id))
-    ring(solo, process_id, project_id, brief)
+    if not ring(solo, process_id, project_id, brief):
+        log("%s: agent %s never started on its brief; check it in Solo" % (role, process_id))
     return process_id, agent_status(solo, process_id, project_id), True
